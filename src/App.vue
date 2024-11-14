@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
-import MeuComponent from './components/MeuComponent.vue';
+// @ts-ignore
+import MeuComponent from './components/MeuComponent.vue'
 </script>
 
 <template>
@@ -10,7 +11,6 @@ import MeuComponent from './components/MeuComponent.vue';
 
 <style scoped>
 * {
-  background-color: #013369;
     padding: 0px;
     margin: 0px;
 }

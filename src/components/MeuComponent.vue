@@ -12,27 +12,24 @@
 
             <div class="inputWrap">
                 <label for="superBowls">Número de Títulos do Super Bowl</label>
-                <input class="input" type="number" v-model="newTeam.superBowls"
-                    placeholder="Digite o número de títulos" />
+                <input class="input" type="number" v-model="newTeam.superBowls" placeholder="Digite o número de títulos" />
             </div>
 
             <div class="inputWrap">
                 <label for="favoritePlayers">Jogadores Favoritos</label>
-                <input class="input" type="text" v-model="newTeam.favoritePlayers"
-                    placeholder="Digite os jogadores favoritos" />
+                <input class="input" type="text" v-model="newTeam.favoritePlayers" placeholder="Digite os jogadores favoritos" />
             </div>
 
             <div class="inputWrap">
                 <label for="foundedYear">Ano de Fundação</label>
-                <input class="input" type="number" v-model="newTeam.foundedYear"
-                    placeholder="Digite o ano de fundação" />
+                <input class="input" type="number" v-model="newTeam.foundedYear" placeholder="Digite o ano de fundação" />
             </div>
 
             <button class="button" @click="addTeam">Adicionar Time</button>
 
             <h2>Lista de Times</h2>
             <ul>
-                <li v-for="(team, index) in teamCollection" :key="index">
+                <li v-for="(team, index) in teamStore.teamCollection" :key="index">
                     <strong>{{ team.nflTeam }}</strong> - Títulos do Super Bowl: {{ team.superBowls }} - Jogadores
                     Favoritos: {{ team.favoritePlayers }} - Ano de Fundação: {{ team.foundedYear }}
                     <button @click="removeTeam(index)">Remover</button>
@@ -42,58 +39,25 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import { useTeamStore } from '@/stores/teamStore';
+import type { Team } from '@/types/types';
+import { ref } from 'vue';
+
 export default {
-    data() {
-        return {
-            newTeam: {
-                nflTeam: "",
-                superBowls: 0,
-                favoritePlayers: "",
-                foundedYear: ""
-            },
-            teamCollection: [],
-            nflTeams: [
-                "Arizona Cardinals",
-                "Atlanta Falcons",
-                "Baltimore Ravens",
-                "Buffalo Bills",
-                "Carolina Panthers",
-                "Chicago Bears",
-                "Cincinnati Bengals",
-                "Cleveland Browns",
-                "Dallas Cowboys",
-                "Denver Broncos",
-                "Detroit Lions",
-                "Green Bay Packers",
-                "Houston Texans",
-                "Indianapolis Colts",
-                "Jacksonville Jaguars",
-                "Kansas City Chiefs",
-                "Las Vegas Raiders",
-                "Los Angeles Chargers",
-                "Los Angeles Rams",
-                "Miami Dolphins",
-                "Minnesota Vikings",
-                "New England Patriots",
-                "New Orleans Saints",
-                "New York Giants",
-                "New York Jets",
-                "Philadelphia Eagles",
-                "Pittsburgh Steelers",
-                "San Francisco 49ers",
-                "Seattle Seahawks",
-                "Tampa Bay Buccaneers",
-                "Tennessee Titans",
-                "Washington Commanders"
-            ]
-        };
-    },
-    methods: {
-        addTeam() {
-            if (this.newTeam.nflTeam && this.newTeam.superBowls && this.newTeam.favoritePlayers && this.newTeam.foundedYear) {
-                this.teamCollection.push({ ...this.newTeam });
-                this.newTeam = {
+    setup() {
+        const teamStore = useTeamStore();
+        const newTeam = ref<Team>({
+            nflTeam: "",
+            superBowls: 0,
+            favoritePlayers: "",
+            foundedYear: ""
+        });
+
+        const addTeam = () => {
+            if (newTeam.value.nflTeam && newTeam.value.superBowls && newTeam.value.favoritePlayers && newTeam.value.foundedYear) {
+                teamStore.addTeam({ ...newTeam.value });
+                newTeam.value = {
                     nflTeam: "",
                     superBowls: 0,
                     favoritePlayers: "",
@@ -102,10 +66,30 @@ export default {
             } else {
                 alert("Por favor, preencha todos os campos!");
             }
-        },
-        removeTeam(index) {
-            this.teamCollection.splice(index, 1);
-        }
+        };
+
+        const removeTeam = (index: number) => {
+            teamStore.removeTeam(index);
+        };
+
+        return {
+            newTeam,
+            teamStore,
+            addTeam,
+            removeTeam,
+            nflTeams: [
+                "Arizona Cardinals", "Atlanta Falcons", "Baltimore Ravens", "Buffalo Bills", 
+                "Carolina Panthers", "Chicago Bears", "Cincinnati Bengals", "Cleveland Browns",
+                "Dallas Cowboys", "Denver Broncos", "Detroit Lions", "Green Bay Packers",
+                "Houston Texans", "Indianapolis Colts", "Jacksonville Jaguars", 
+                "Kansas City Chiefs", "Las Vegas Raiders", "Los Angeles Chargers",
+                "Los Angeles Rams", "Miami Dolphins", "Minnesota Vikings", 
+                "New England Patriots", "New Orleans Saints", "New York Giants",
+                "New York Jets", "Philadelphia Eagles", "Pittsburgh Steelers", 
+                "San Francisco 49ers", "Seattle Seahawks", "Tampa Bay Buccaneers", 
+                "Tennessee Titans", "Washington Commanders"
+            ]
+        };
     }
 };
 </script>
@@ -121,7 +105,7 @@ export default {
     gap: 10px;
     font-family: Arial, Helvetica, sans-serif;
     
-    color: white;
+    color: black;
 }
 
 
