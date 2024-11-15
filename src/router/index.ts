@@ -1,4 +1,5 @@
 import Home from '@/components/Home.vue'
+import NextGames from '@/components/NextGames.vue'
 import TeamList from '@/components/TeamList.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -14,6 +15,11 @@ const router = createRouter({
       path: '/times',
       name: 'times',
       component: TeamList
+    },
+    {
+      path: '/games',
+      name: 'games',
+      component: NextGames
     }
   ]
 })

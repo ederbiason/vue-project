@@ -1,7 +1,6 @@
 <script lang="ts">
 import { useTeamStore } from '@/stores/teamStore'
 import type { Team } from '@/types/types'
-import { Frown } from 'lucide-vue-next';
 
 export default {
     setup() {
