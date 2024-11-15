@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[#103242] to-[#06334B]">
+    <div class="w-full h-screen flex flex-col items-center pt-20 bg-gradient-to-br from-[#103242] to-[#06334B]">
         <div class="bg-blue-300 p-10 rounded-lg flex flex-col gap-5 shadow-lg">
             <h1 class="text-3xl font-bold">Minha Coleção de Times da NFL</h1>
             <div class="flex flex-col gap-5">

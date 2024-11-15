@@ -5,7 +5,7 @@
     <div v-else>
       <div v-if="games.length > 0" class="">
         <ul class="flex flex-col gap-3 text-center items-center">
-          <li v-for="game in games" :key="game.game.id" class="bg-blue-100 w-full flex flex-col items-center rounded-lg p-2">
+          <li v-for="game in games" :key="game.game.id" class="bg-blue-100 w-full flex flex-col items-center rounded-lg p-2 gap-2">
             <div class="flex text-lg items-center gap-3">
               <div class="flex items-center gap-2 font-semibold">
                 {{ game.teams.home.name }} 
